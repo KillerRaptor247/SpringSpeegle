@@ -1,0 +1,30 @@
+<!-- base.html -->
+<!-- html file for the base template to have the navigation bar -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% if title %}
+        <title>{{ title }} - SpringSpeegle</title>
+        {% else %}
+        <title>Welcome to the SpringSpeegle Database!</title>
+        {% endif %}
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>CSI 3335 Project:
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
