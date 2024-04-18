@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1> User: {{ user.username }}</h1>
+    <h1>Choose your team and year!</h1>
+    <form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.selectedTeam }}
+    </p><br>
+    <p>
+        {{ form.selectedYear }}
+    </p><br>
+    <p>
+        {{ form.confirmTeam }}
+    </p>
+    <p>
+        {{ form.submitYear }}
+    </p>
+    </form>
+{% endblock %}

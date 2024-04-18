@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1> User: {{ user.username }}</h1>
+    <h1> {{ teams.team_name }} Roster  for {{ years.yearID }}</h1>
+    <h1> Batting </h1>
+    <table>
+        <thead>
+        <td><b>Player</b></td>
+        <td><b>Pitcher</b></td>
+        <td><b>Catcher</b></td>
+        <td><b>First Base</b></td>
+        <td><b>Second Base</b></td>
+        <td><b>Third Base</b></td>
+        <td><b>Short Stop</b></td>
+        <td><b>Left Field</b></td>
+        <td><b>Center Field</b></td>
+        <td><b>Right Field</b></td>
+        <td><b>Batting Average</b></td>
+        <td><b>On Base Percentage</b></td>
+        <td><b>Slugging Percentage</b></td>
+        {% for row in batting_stats %}
+        <tr>
+            {{ row["Name"] }}
+            {{ row["G_p"] }}
+            {{ row["G_c"] }}
+            {{ row["G_1b"] }}
+            {{ row["G_3b"] }}
+            {{ row["G_ss"] }}
+            {{ row["G_lf"] }}
+            {{ row["G_cf"] }}
+            {{ row["G_rf"] }}
+            {{ row["batAvg"] }}
+            {{ row["basPtg"] }}
+            {{ row["slgPtg"] }}
+        </tr>
+        {% endfor %}
+    </table>
+    <h1> Pitching </h1>
+    <table>
+        <thead>
+        <td><b>Player</b></td>
+        <td><b>Games Pitched</b></td>
+        <td><b>Games Started</b></td>
+        <td><b>Innings Pitched</b></td>
+        <td><b>WHIP</b></td>
+        <td><b>SO per 9 Innings</b></td>
+        </thead>
+    </table>
+{% endblock %}

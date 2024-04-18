@@ -8,4 +8,4 @@ connection = pymysql.connect(host=mysql['host'],
                              password=mysql['password'],
                              db=mysql['database'])
 
-#TODO UPDATE DATABASE WITH 2023 BASEBALL DATA
+#TODO UPDATE DATABASE WITH 2023 Teams Table and HallofFame Table
