@@ -121,7 +121,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Open the CSV file
-with open('/home/wesley/Documents/DatabasesProject/SpringSpeegle/lahman_1871-2023_csv/lahman_1871-2023_csv/Teams.csv', 'r') as file:
+with open('../lahman_1871-2023_csv/lahman_1871-2023_csv/Teams.csv', 'r') as file:
     reader = csv.DictReader(file)
 
     # reader = pd.read_csv(file, iterator=True, na_values=[''])
@@ -133,10 +133,8 @@ with open('/home/wesley/Documents/DatabasesProject/SpringSpeegle/lahman_1871-202
         # Extract the data from the row based on the mappings
         
         if (row['yearID'] != '2023'):
-            print("Skipping row")
             continue
 
-        print(row['yearID'])
         teamID = row['teamID']
         yearID = row['yearID']
         lgID = row['lgID']
