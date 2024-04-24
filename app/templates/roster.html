@@ -2,9 +2,10 @@
 
 {% block content %}
     <h1> User: {{ user.username }}</h1>
-    <h1> {{ teams.team_name }} Roster  for {{ years.yearID }}</h1>
+    <h1> {{ teams }} Roster  for {{ years }}</h1>
+    <hr>
     <h1> Batting </h1>
-    <table>
+    <table border = 0>
         <thead>
         <td><b>Player</b></td>
         <td><b>Pitcher</b></td>
@@ -21,23 +22,25 @@
         <td><b>Slugging Percentage</b></td>
         {% for row in batting_stats %}
         <tr>
-            {{ row["Name"] }}
-            {{ row["G_p"] }}
-            {{ row["G_c"] }}
-            {{ row["G_1b"] }}
-            {{ row["G_3b"] }}
-            {{ row["G_ss"] }}
-            {{ row["G_lf"] }}
-            {{ row["G_cf"] }}
-            {{ row["G_rf"] }}
-            {{ row["batAvg"] }}
-            {{ row["basPtg"] }}
-            {{ row["slgPtg"] }}
+            <td>{{ row["Name"] }}</td>
+            <td>{{ row["G_p"] }}</td>
+            <td>{{ row["G_c"] }}</td>
+            <td>{{ row["G_1b"] }}</td>
+            <td>{{ row["G_2b"] }}</td>
+            <td>{{ row["G_3b"] }}</td>
+            <td>{{ row["G_ss"] }}</td>
+            <td>{{ row["G_lf"] }}</td>
+            <td>{{ row["G_cf"] }}</td>
+            <td>{{ row["G_rf"] }}</td>
+            <td>{{ row["batAvg"] }}</td>
+            <td>{{ row["basPtg"] }}</td>
+            <td>{{ row["slgPtg"] }}</td>
         </tr>
         {% endfor %}
     </table>
+    <hr>
     <h1> Pitching </h1>
-    <table>
+    <table border = 0>
         <thead>
         <td><b>Player</b></td>
         <td><b>Games Pitched</b></td>
@@ -46,5 +49,16 @@
         <td><b>WHIP</b></td>
         <td><b>SO per 9 Innings</b></td>
         </thead>
+        {% for row in pitching_stats %}
+        <tr>
+            <td>{{ row["Name"] }}</td>
+            <td>{{ row["G_p"] }}</td>
+            <td>{{ row["GS"] }}</td>
+            <td>{{ row["Inn"] }}</td>
+            <td>{{ row["WHIP"] }}</td>
+            <td>{{ row["SOp9"] }}</td>
+        </tr>
+        {% endfor %}
     </table>
+    <hr>
 {% endblock %}

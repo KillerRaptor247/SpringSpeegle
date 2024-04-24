@@ -15,6 +15,7 @@ class User(UserMixin, db.Model):
     username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True, unique=True)
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
+    is_admin: so.Mapped[bool] = so.mapped_column(sa.Boolean, default=False)
 
     # this tells python how to print out the User class!
     def __repr__(self):
@@ -30,7 +31,7 @@ class User(UserMixin, db.Model):
 
 class Teams(db.Model):
 
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    teams_id: so.Mapped[int] = so.mapped_column(primary_key=True)
     teamID: so.Mapped[str] = so.mapped_column(sa.String(3), index=True, unique=True)
     yearID: so.Mapped[int] = so.mapped_column(sa.SmallInteger)
     team_name: so.Mapped[str] = so.mapped_column(sa.String(50))

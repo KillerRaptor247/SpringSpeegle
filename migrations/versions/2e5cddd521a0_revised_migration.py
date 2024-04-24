@@ -23,6 +23,7 @@ def upgrade():
                     sa.Column('username', sa.String(length=64), nullable=False),
                     sa.Column('email', sa.String(length=120), nullable=False),
                     sa.Column('password_hash', sa.String(length=256), nullable=True),
+                    sa.Column('is_admin', sa.Boolean(), default=False, nullable=False),
                     sa.PrimaryKeyConstraint('id')
                     )
     with op.batch_alter_table('user', schema=None) as batch_op:

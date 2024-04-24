@@ -2,5 +2,11 @@
 
 {% block content %}
     <h1> User: {{ user.username }}</h1>
+    <h1> Administrator: {{ user.is_admin }} </h1>
     <hr>
+    {% if user.is_admin %}
+    {% for line in file %}
+        <div><p>{{ line }}</p></div>
+    {% endfor %}
+    {% endif %}
 {% endblock %}

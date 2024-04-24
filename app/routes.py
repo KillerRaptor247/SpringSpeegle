@@ -1,8 +1,10 @@
 # routes.py
 # Contains the routes to the different web pages for the project
+from datetime import datetime
+
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegisterForm, TeamForm
+from app.forms import LoginForm, RegisterForm, TeamForm, RosterForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app.models import User, Teams
@@ -13,17 +15,7 @@ from urllib.parse import urlsplit
 @app.route('/index')
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'I love baseball!'
-        },
-        {
-            'author': {'username': 'Mary'},
-            'body': 'Baseball is okay I guess'
-        }
-    ]
-    return render_template('index.html', title='CSI 3335 Spring Project', posts=posts)
+    return render_template('index.html', title='CSI 3335 Spring Project')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -38,6 +30,7 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
+        app.logger.info('Logging in ' + form.username.data + ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or urlsplit(next_page).netloc != '':
@@ -48,6 +41,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+    app.logger.info('Logging out ' + current_user.username + ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
     logout_user()
     return redirect(url_for('index'))
 
@@ -63,6 +57,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
+        app.logger.info('Registering ' + current_user.username + ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -78,16 +73,39 @@ def teamsYears():
     if form.validate_on_submit():
         if form.confirmTeam.data:
             flash("YO THE TEAM WAS SUBMITTED")
+            app.logger.info(current_user.username + ' has selected ' + form.selectedTeam.data +
+                            ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
             form.getYears(form.selectedYear, form.selectedTeam)
         elif form.submitYear.data:
-            flash("YO THE YEARS WERE SUBMITTED")
-            return redirect(url_for('index'))
-            # TODO PERFORM SQL QUERY FOR NEXT STEP
+            if form.selectedYear.data is not None:
+                app.logger.info(current_user.username + ' has selected ' + form.selectedYear.data +
+                            ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                flash("Years were submitted. Opening Roster")
+                return redirect(url_for('roster', selectedTeam=form.selectedTeam.data, selectedYear=form.selectedYear.data))
     return render_template('teams-years.html', title='Teams-Years', form=form, user=current_user)
+
+
+@app.route('/roster/<selectedTeam>/<selectedYear>', methods=['GET', 'POST'])
+@login_required
+def roster(selectedTeam, selectedYear):
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RosterForm()
+    batting = form.getBatting(selectedTeam, selectedYear)
+    pitching = form.getPitching(selectedTeam, selectedYear)
+    app.logger.info('Displaying Roster for ' + selectedTeam + ' in ' + selectedYear +
+                    ' for user: ' + current_user.username + ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    return render_template('roster.html', title='Roster', form=form, user=current_user,
+                           batting_stats=batting,
+                           pitching_stats=pitching,
+                           teams=selectedTeam, years=selectedYear)
 
 
 @app.route('/user/<username>')
 @login_required
 def user(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
-    return render_template('user.html', user=user)
+    app.logger.info('Displaying Profile for User: ' + username + ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    logfile = open("./logs/adminLog.log", "r")
+    lines = logfile.readlines()
+    return render_template('user.html', user=user, file=lines)

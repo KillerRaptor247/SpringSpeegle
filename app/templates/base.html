@@ -12,6 +12,7 @@
     </head>
     <body>
         <div>CSI 3335 Project:
+        <audio src="/static/backgroundMusic.mp3" loop="true" autoplay></audio>
             <a href="{{ url_for('index') }}">Home</a>
             {% if current_user.is_anonymous %}
             <a href="{{ url_for('login') }}">Login</a>
