@@ -3,6 +3,7 @@
 {% block content %}
     <h1> User: {{ user.username }}</h1>
     <h1> Administrator: {{ user.is_admin }} </h1>
+    <h1> Favorite Team: {% if user.fav_team != none %} <img style="vertical-align:middle" src="{{ logo }}" width="100" height="auto">{% endif %} {{ user.fav_team }}
     <hr>
     {% if user.is_admin %}
     {% for line in file %}

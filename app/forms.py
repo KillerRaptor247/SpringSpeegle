@@ -1,5 +1,6 @@
 # forms.py
 # Python file for storing the web form of the classes used
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.fields.choices import SelectField
@@ -52,6 +53,16 @@ class TeamForm(FlaskForm):
 
 
 class RosterForm(FlaskForm):
+    submitFav = SubmitField(u'Favorite?')
+
+    def submitTeam(self, selectedTeam):
+        db.session.execute(db.update(User).where(User.username == current_user.username)
+                           .values(fav_team=selectedTeam))
+        db.session.commit()
+
+    def getLogo(self, selectedTeam):
+        logo = db.session.execute(db.select(Teams.team_logo).where(Teams.team_name == selectedTeam)).scalar()
+        return logo
 
     def getBatting(self, selectedTeam, selectedYear):
         battingSQL = ("SELECT CONCAT(nameFirst, ' ', nameLast) as Name, "
@@ -72,3 +83,15 @@ class RosterForm(FlaskForm):
                        "WHERE teams.team_name = :s and appearances.yearID = :d GROUP BY Name;")
         pitchingRoster = db.session.execute(sa.text(pitchingSQL), {"s": selectedTeam, "d": selectedYear})
         return pitchingRoster.fetchall()
+
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request Password Reset')
