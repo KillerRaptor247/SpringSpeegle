@@ -10,7 +10,8 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
-
+from . import addUser as ad
+from . import updateTeams as ut
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -33,7 +34,7 @@ if not app.debug:
         mail_handler = SMTPHandler(
             mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
             fromaddr='no-reply@' + app.config['MAIL_SERVER'],
-            toaddrs=app.config['ADMINS'], subject='Microblog Failure',
+            toaddrs=app.config['ADMINS'], subject='SpringSpeegle Failure',
             credentials=auth, secure=secure)
         mail_handler.setLevel(logging.ERROR)
         app.logger.addHandler(mail_handler)
@@ -49,4 +50,6 @@ if not app.debug:
 
     app.logger.setLevel(logging.INFO)
     app.logger.info('Admin Log Start Up')
+    ad.insertAdmin()
+    ut.updateTeams()
 

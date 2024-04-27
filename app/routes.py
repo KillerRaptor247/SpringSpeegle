@@ -60,7 +60,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        app.logger.info('Registering ' + current_user.username + ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+        app.logger.info('Registering ' + form.username.data + ' at ' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 

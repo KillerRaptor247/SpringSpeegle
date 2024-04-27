@@ -1,7 +1,7 @@
 # config.py
 # configuration file for Flask Environment
 import os
-from Python_Scripts.dbConfig import mysql
+from app.dbConfig import mysql
 
 
 class Config:
@@ -14,8 +14,7 @@ class Config:
     MAIL_SERVER = "smtp.googlemail.com"
     MAIL_PORT = 587
     MAIL_USE_TLS = 1
-    #TODO REPLACE WITH TESTING EMAIL AND TESTING PASSWORD
-    MAIL_USERNAME = "testingemail"
-    MAIL_PASSWORD = "testingpassword"
-    ADMINS = ['admin password']
+    MAIL_USERNAME = "springspeegle2024@gmail.com"
+    MAIL_PASSWORD = "kysj vqem cqqi ygpo"
+    ADMINS = ['springspeegle2024@gmail.com']
 

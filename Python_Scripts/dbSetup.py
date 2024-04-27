@@ -1,7 +1,7 @@
 # dbSetup.py
 # Establish Connection to the database
 import pymysql
-from dbConfig import mysql
+from app.dbConfig import mysql
 
 
 def get_connection():
