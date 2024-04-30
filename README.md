@@ -3,6 +3,7 @@
 This README assumes that you have followed and setup the initialREADME.md project environment.
 Additionally, the database assumes you have the SQLStart.bat and SQL.bat opened and running using the database setup instructions shown 
 at https://cs.baylor.edu/~speegle/3335/install.html
+The Mysql Dictionary File needed is located in the app subdirectory
 
 ## Instructions
 
