@@ -53,6 +53,7 @@ This User can view admin information as already has their favorite team set to t
 * Routing Web Page Protection (A logged in User cannot access the registration page, a logged out user cannot access Teams, navigation bar updated in real time, etc.)
 * Backend routing page interactivity (Rather than repeated sql calls, Data is queried once, saved, then passed between pages utilizing the Form Classes in Forms.py. See also routes.py and templates directory)
 * Browser Tab Title and Description on Hover
+* Complete Database update automation for users via flask migration
 * Creation of Sacred Speegle Tesseract on home page crafted by the finest of artisans
 
 
