@@ -9,6 +9,7 @@ at https://cs.baylor.edu/~speegle/3335/install.html
 1. Install Email Dependencies
 
 You may have to install flask-mail and pyjwt for email and password functionality. This can be done as follows!
+NOTE: For the extra credit email functionality to work, the email has to be real and already in the database for a user!
 ```bash
 pip install flask-mail
 pip install pyjwt
