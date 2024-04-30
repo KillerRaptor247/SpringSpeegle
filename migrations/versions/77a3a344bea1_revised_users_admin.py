@@ -18,8 +18,7 @@ depends_on = None
 
 def upgrade():
 
-    with op.batch_alter_table('user', schema=None) as batch_op:
-        batch_op.add_column(sa.Column('is_admin', sa.Boolean(), nullable=False))
+    return
 
     # ### end Alembic commands ###
 

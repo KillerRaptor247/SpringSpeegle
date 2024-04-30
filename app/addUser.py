@@ -4,7 +4,7 @@
 import pymysql
 from werkzeug.security import generate_password_hash
 
-from . import dbConfig as dbC
+from . import csi3335sp2023 as dbC
 
 
 def insertAdmin():
@@ -21,4 +21,5 @@ def insertAdmin():
     connection.commit()
     cur.close()
     connection.close()
+    print("Admin Inserted!")
 

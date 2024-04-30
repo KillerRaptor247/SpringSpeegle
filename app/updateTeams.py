@@ -52,7 +52,7 @@
 import pymysql
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text, ForeignKey, func, Float, SmallInteger
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship, joinedload
-from . import dbConfig as dbC
+from . import csi3335sp2023 as dbC
 import sys
 import csv
 import pandas as pd

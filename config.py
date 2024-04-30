@@ -1,7 +1,7 @@
 # config.py
 # configuration file for Flask Environment
 import os
-from app.dbConfig import mysql
+from app.csi3335sp2023 import mysql
 
 
 class Config:

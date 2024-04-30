@@ -8,6 +8,9 @@ Create Date: 2024-04-24 11:35:28.573500
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import mysql
+from app import addUser as ad
+from app import updateTeams as ut
+from app import updateHOF as uu
 
 # revision identifiers, used by Alembic.
 revision = 'ed2a8b209801'
@@ -24,6 +27,10 @@ def upgrade():
 
     with op.batch_alter_table('user', schema=None) as batch_op:
         batch_op.add_column(sa.Column('fav_team', sa.String(length=64), nullable=True))
+
+    ad.insertAdmin()
+    ut.updateTeams()
+    uu.updateHOF()
 
     # ### end Alembic commands ###
 
